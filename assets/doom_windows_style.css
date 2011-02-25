@@ -1,0 +1,69 @@
+/* doomWindows */
+
+.doom-win-overlay {
+	background: #AAA;
+	opacity:0.6;
+}
+
+.doom-win {
+	background: transparent url(bg_opacity_black.png);
+	padding: 10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+
+.doom-win-content {
+	background: #fff;
+	overflow: hidden;
+	padding: 15px 5px 5px 5px;
+	min-width: 250px;
+	min-height: 50px;
+}
+
+.doom-win-bt-cnt {
+	background: #fff;
+	padding: 0 10px 0 10px;
+}
+
+.doom-win-bt-list {
+	background: #fff;
+	list-style-type: none;
+	text-align: right;
+	border-top: solid 1px #DDD;
+	padding: 5px 0 5px 0;
+}
+
+.doom-win-bt-list li {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.doom-win-bt-list li button {
+	border:none;
+	font-size:13px;
+	font-weight:bold;
+	height:22px;
+	padding-right:18px;
+	text-align:right;
+	text-transform:uppercase;
+	cursor: pointer;
+	background: transparent;
+	color: #777;
+}
+
+.doom-win-bt-list .doom-win-bt-close button {
+	background:url("bt_close.gif") no-repeat scroll right center transparent;
+
+}
+
+.doom-win-ajax-loading {
+	background:#fff url("ajax_loader.gif") no-repeat center center;
+}
+
+.d-alert-msg {
+
+}
+
+.d-confirm-msg {
+
+}

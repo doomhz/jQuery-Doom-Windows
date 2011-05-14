@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>jQuery Doom Windows</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="assets/doom_windows_style.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/jquery.doomWindows.js"></script>
+  </head>
+  <body>
+    <h1>jQuery Doom Windows</h1>
+
+	<h2>How To</h2>
+
+		<ol>
+			<li>Include the doom_windows_style.css style</li>
+			<li>Include the jquery.doomWindows.js file</li>
+			<li>Make windows: dWindow('&lt;img src="http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=400x400&sensor=false" alt="Google Maps" width="400" height="400" /&gt;')</li>
+		</ol>
+        
+		<h2>Examples and implementation</h2>
+
+		<h3>View Google Maps window</h3>
+		
+		<p><button id="view-map-bt">View map</button></p>
+
+		<pre>
+$('#view-map-bt').click(function () {
+	dWindow('&lt;img src="http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=400x400&sensor=false"
+ alt="Google Maps" width="400" height="400" /&gt;');
+});
+		</pre>
+		
+		<p>or:</p>
+		
+		<pre>
+$('#view-map-bt').click(function () {
+	$('&lt;img src="http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=400x400&sensor=false"
+ alt="Google Maps" width="400" height="400" /&gt;').doomWindows({buttons:false, buttonClick: function (btType, win) {btType === 'close' && win.close();}});
+});
+		</pre>
+		
+		<h3>Confirm window</h3>
+		
+		<p><button id="delete-bt">Delete item</button></p>
+
+		<pre>
+$('#view-map-bt').click(function () {
+	dConfirm('Are you sure you want to delete this item?', function (btType, win) {
+		(btType === 'no' || btType === 'close') && win.close();
+		if (btType === 'yes') {
+			// some ajax to delete item here
+			win.close();
+			dAlert('Item deleted!');
+		}
+	});
+});
+		</pre>
+		
+		<h3>Alert window</h3>
+		
+		<p><button id="alert-bt">Rase an error</button></p>
+
+		<pre>
+$('#alert-bt').click(function () {
+	dAlert('Omg! A fake error occured! Do not panic!');
+});
+		</pre>
+		
+		<h3>Load remote content with Ajax</h3>
+		
+		<p><a href="http://localhost/jQuery-Doom-Windows/remote_example.html" id="remote-bt" titl="Load Sign In form">Display remote data</a></p>
+
+		<pre>
+$('#remote-bt').click(function () {
+	dWindow(false, {
+		ajaxUrl: $(this).attr('href'),
+		cacheAjaxResult: true,
+		wrapperId: 'log-in-window',
+		minHeight: 317,
+		minWidth: 430
+	});
+	return false;
+});
+		</pre>
+
+		<h2>Options</h2>
+
+		<dl>
+			<dt><b>styles</b> ({position: 'absolute', 'z-index': 999, top: false, left: false}):</dt>
+			<dd>
+				Window default styles.
+			</dd>
+			<dt><b>width</b> ('auto'):</dt>
+			<dd>
+				Set up a custom width of the window.
+			</dd>
+			<dt><b>height</b> ('auto'):</dt>
+			<dd>
+				Set up a custom height of the window.
+			</dd>
+			<dt><b>minWidth</b> ('auto'):</dt>
+			<dd>
+				Set up a custom min-width style.
+			</dd>
+			<dt><b>minHeight</b> ('auto'):</dt>
+			<dd>
+				Set up a custom min-height style.
+			</dd>
+			<dt><b>overlay:</b> (true):</dt>
+			<dd>
+				Show or hide window overlay.
+			</dd>
+			<dt><b>wrapp:</b> (true):</dt>
+			<dd>
+				Buy default the content is wrapped in a div of 'doom-win' class.
+			</dd>
+			<dt><b>wrapperClass</b> ('doom-win'):</dt>
+			<dd>
+				Set the deafult wrapper class.
+			</dd>
+			<dt><b>wrapperId</b> (false):</dt>
+			<dd>
+				Give a unique id to your window so it's easier to style it.
+			</dd>
+			<dt><b>wrapperHtml</b> ('&lt;div&gt;&lt;div class="doom-win-content"&gt;&lt;/div&gt;&lt;/div&gt;'):</dt>
+			<dd>
+				Set up a custom html window wrapper.
+			</dd>
+			<dt><b>buttons</b> ({ok:'Ok'}):</dt>
+			<dd>
+				Bottom buttons and button text.
+			</dd>
+			<dt><b>headerButtons</b> ({close:'Close'}):</dt>
+			<dd>
+				Header buttons and button text.
+			</dd>
+			<dt><b>buttonsTranslate</b> ([]):</dt>
+			<dd>
+				Text translate for buttons.
+			</dd>
+			<dt><b>buttonsTranslate</b> ('&lt;div class="doom-win-bt-cnt-header"&gt;&lt;ul class="doom-win-bt-list"&gt;{buttons}&lt;/ul&gt;&lt;/div&gt;'):</dt>
+			<dd>
+				Header buttons html wrapper structure.
+			</dd>
+			<dt><b>buttonsWrapperHtml</b> ('&lt;div class="doom-win-bt-cnt"&gt;&lt;ul class="doom-win-bt-list"&gt;{buttons}&lt;/ul&gt;&lt;/div&gt;'):</dt>
+			<dd>
+				Bottom buttons html wrapper structure.
+			</dd>
+			<dt><b>buttonHtml</b> ('&lt;li class="doom-win-bt-{buttonType}"&gt;&lt;button data-type="{buttonType}">&lt;span&gt;{buttonText}&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;'):</dt>
+			<dd>
+				Message button HTML structure.
+			</dd>
+			<dt><b>buttonClick</b> (null):</dt>
+			<dd>
+				A callback function when for all the buttons. Get the buttons key (ok, close, yes, no) and the window object as args. I.e.: function (btType, win) {btType === 'close' && win.close();}
+			</dd>
+			<dt><b>ajaxUrl</b> (null):</dt>
+			<dd>
+				Set the ajax url if you want to load content remotely.
+			</dd>
+			<dt><b>afterAjax</b> (null):</dt>
+			<dd>
+				After ajax callback function. Gets the ajax response as arg.
+			</dd>
+			<dt><b>ajaxData</b> (null):</dt>
+			<dd>
+				Set some custome request query params for ajax.
+			</dd>
+			<dt><b>cacheAjaxResult</b> (false):</dt>
+			<dd>
+				Set this if you want the ajax content to be cached in the browser.
+			</dd>
+			<dt><b>onShow</b> (null):</dt>
+			<dd>
+				Callback function after the window is created and displayed.
+			</dd>
+		</dl>
+
+		
+
+		<script type="text/javascript">
+			$(document).ready(function () {
+				
+				// Show Google Maps in a window
+				$('#view-map-bt').click(function () {
+					dWindow('<img src="http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=400x400&sensor=false" alt="Google Maps" width="400" height="400" />');
+				});
+				
+				// Confirm item deletion
+				$('#delete-bt').click(function () {
+					dConfirm('Are you sure you want to delete this item?', function (btType, win) {
+						(btType === 'no' || btType === 'close') && win.close();
+						if (btType === 'yes') {
+							// some ajax to delete item here
+							win.close();
+							dAlert('Item deleted!');
+						}
+					});
+				});
+				
+				// Alert a error message
+				$('#alert-bt').click(function () {
+					dAlert('Omg! A fake error occured! Do not panic!');
+				});
+				
+				// Load remote content with Ajax
+				$('#remote-bt').click(function () {
+					dWindow(false, {
+						ajaxUrl: $(this).attr('href'),
+						cacheAjaxResult: true,
+						wrapperId: 'log-in-window',
+						minHeight: 317,
+						minWidth: 430
+					});
+					return false;
+				});
+			});
+		</script>
+
+  </body>
+</html>

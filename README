@@ -1,3 +1,113 @@
 jQuery Doom Windows
 
-jQuery plugin to display modal windows and alerts.
+How To:
+
+Include the doom_windows_style.css style
+Include the jquery.doomWindows.js file
+Make windows: dWindow('<img src="http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=400x400&sensor=false" alt="Google Maps" width="400" height="400" />')
+
+Examples and implementation:
+
+View Google Maps window
+
+View map
+
+$('#view-map-bt').click(function () {
+	dWindow('<img src="http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=400x400&sensor=false"
+ alt="Google Maps" width="400" height="400" />');
+});
+		
+or:
+
+$('#view-map-bt').click(function () {
+	$('<img src="http://maps.google.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=400x400&sensor=false"
+ alt="Google Maps" width="400" height="400" />').doomWindows({buttons:false, buttonClick: function (btType, win) {btType === 'close' && win.close();}});
+});
+
+		
+Confirm window
+
+Delete item
+
+$('#view-map-bt').click(function () {
+	dConfirm('Are you sure you want to delete this item?', function (btType, win) {
+		(btType === 'no' || btType === 'close') && win.close();
+		if (btType === 'yes') {
+			// some ajax to delete item here
+			win.close();
+			dAlert('Item deleted!');
+		}
+	});
+});
+
+		
+Alert window
+
+Rase an error
+
+$('#alert-bt').click(function () {
+	dAlert('Omg! A fake error occured! Do not panic!');
+});
+		
+Load remote content with Ajax
+
+Display remote data
+
+$('#remote-bt').click(function () {
+	dWindow(false, {
+		ajaxUrl: $(this).attr('href'),
+		cacheAjaxResult: true,
+		wrapperId: 'log-in-window',
+		minHeight: 317,
+		minWidth: 430
+	});
+	return false;
+});
+
+		
+Options
+
+styles ({position: 'absolute', 'z-index': 999, top: false, left: false}):
+	Window default styles.
+width ('auto'):
+	Set up a custom width of the window.
+height ('auto'):
+	Set up a custom height of the window.
+minWidth ('auto'):
+	Set up a custom min-width style.
+minHeight ('auto'):
+	Set up a custom min-height style.
+overlay: (true):
+	Show or hide window overlay.
+wrapp: (true):
+	Buy default the content is wrapped in a div of 'doom-win' class.
+wrapperClass ('doom-win'):
+	Set the deafult wrapper class.
+wrapperId (false):
+	Give a unique id to your window so it's easier to style it.
+wrapperHtml ('<div><div class="doom-win-content"></div></div>'):
+	Set up a custom html window wrapper.
+buttons ({ok:'Ok'}):
+	Bottom buttons and button text.
+headerButtons ({close:'Close'}):
+	Header buttons and button text.
+buttonsTranslate ([]):
+	Text translate for buttons.
+buttonsTranslate ('<div class="doom-win-bt-cnt-header"><ul class="doom-win-bt-list">{buttons}</ul></div>'):
+	Header buttons html wrapper structure.
+buttonsWrapperHtml ('<div class="doom-win-bt-cnt"><ul class="doom-win-bt-list">{buttons}</ul></div>'):
+	Bottom buttons html wrapper structure.
+buttonHtml ('<li class="doom-win-bt-{buttonType}"><button data-type="{buttonType}"><span>{buttonText}</span></button></li>'):
+	Message button HTML structure.
+buttonClick (null):
+	A callback function when for all the buttons. Get the buttons key (ok, close, yes, no) and the window object as args. I.e.: function (btType, win) {btType === 'close' && win.close();}
+ajaxUrl (null):
+	Set the ajax url if you want to load content remotely.
+afterAjax (null):
+	After ajax callback function. Gets the ajax response as arg.
+ajaxData (null):
+	Set some custome request query params for ajax.
+cacheAjaxResult (false):
+	Set this if you want the ajax content to be cached in the browser.
+onShow (null):
+	Callback function after the window is created and displayed.

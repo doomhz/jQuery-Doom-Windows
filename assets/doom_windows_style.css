@@ -94,5 +94,10 @@
 }
 
 .d-confirm-msg {
-
+	font-size: 14px;
+	text-align: center;
+	display: block;
+	padding: 20px 10px 0 10px;
 }
+
+	

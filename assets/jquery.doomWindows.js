@@ -53,6 +53,7 @@
 		   buttonsWrapperHtml: '<div class="doom-win-bt-cnt"><ul class="doom-win-bt-list">{buttons}</ul></div>',
 		   buttonHtml: '<li class="doom-win-bt-{buttonType}"><button data-type="{buttonType}"><span>{buttonText}</span></button></li>',
 		   buttonClick: null,
+                   closeOnEsc: true,
 		   ajaxUrl: null,
 		   afterAjax: null,
 		   ajaxData: null,
@@ -130,6 +131,14 @@
 		);
 
 		self.config.onShow && self.config.onShow.call($self);
+
+		if (self.config.closeOnEsc) {
+			$(window).keydown(function (ev) {
+				if (ev.keyCode == '27') {
+					$self.close();
+				}
+			});
+		}
 
 		return $(this);
 	},

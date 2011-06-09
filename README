@@ -101,6 +101,8 @@ buttonHtml ('<li class="doom-win-bt-{buttonType}"><button data-type="{buttonType
 	Message button HTML structure.
 buttonClick (null):
 	A callback function when for all the buttons. Get the buttons key (ok, close, yes, no) and the window object as args. I.e.: function (btType, win) {btType === 'close' && win.close();}
+closeOnEsc (true):
+	Close window on Escape keyboard button click.
 ajaxUrl (null):
 	Set the ajax url if you want to load content remotely.
 afterAjax (null):

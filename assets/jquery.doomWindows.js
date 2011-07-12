@@ -5,7 +5,7 @@
 *
 * @author Dumitru Glavan
 * @link http://dumitruglavan.com
-* @version 1.0
+* @version 1.1
 * @requires jQuery v1.3.2 or later
 *
 * Find source on GitHub: https://github.com/doomhz/jQuery-Doom-Windows
@@ -17,7 +17,7 @@
 */
 (function ($) {
 
-	$.fn.doomWindows = function (options) {
+    $.fn.doomWindows = function (options) {
 
 		if ($(this).length > 1) {
 			$.each($(this), function (i, el) {
@@ -53,7 +53,8 @@
 		   buttonsWrapperHtml: '<div class="doom-win-bt-cnt"><ul class="doom-win-bt-list">{buttons}</ul></div>',
 		   buttonHtml: '<li class="doom-win-bt-{buttonType}"><button data-type="{buttonType}"><span>{buttonText}</span></button></li>',
 		   buttonClick: null,
-                   closeOnEsc: true,
+           closeOnEsc: true,
+           onEsc: null,
 		   ajaxUrl: null,
 		   afterAjax: null,
 		   ajaxData: null,
@@ -136,6 +137,7 @@
 			$(window).keydown(function (ev) {
 				if (ev.keyCode == '27') {
 					$self.close();
+                    $.isFunction(self.config.onEsc) && self.config.onEsc.call(self);
 				}
 			});
 		}

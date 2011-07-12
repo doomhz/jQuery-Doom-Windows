@@ -159,9 +159,17 @@ $('#remote-bt').click(function () {
 			<dd>
 				Close window on Escape keyboard button click.
 			</dd>
-            <dt><b>onEsc</b> (null):</dt>
+            <dt><b>onEsc</b> (function () {$(this).close();}):</dt>
     		<dd>
 				Callback for closing window on Esc button hit.
+			</dd>
+            <dt><b>closeOnSideClick</b> (true):</dt>
+    		<dd>
+				Close window on overlay click.
+			</dd>
+            <dt><b>onSideClick</b> (function () {$(this).close();}):</dt>
+    		<dd>
+				Callback for closing window on overlay click.
 			</dd>
 			<dt><b>ajaxUrl</b> (null):</dt>
 			<dd>

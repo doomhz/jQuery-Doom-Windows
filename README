@@ -103,8 +103,12 @@ buttonClick (null):
 	A callback function when for all the buttons. Get the buttons key (ok, close, yes, no) and the window object as args. I.e.: function (btType, win) {btType === 'close' && win.close();}
 closeOnEsc (true):
 	Close window on Escape keyboard button click.
-onEsc (null):
+onEsc (function () {$(this).close();}):
     Callback for closing window on Esc button hit.
+closeOnSideClick (true):
+    Close window on overlay click.
+onSideClick (function () {$(this).close();}):
+    Callback for closing window on overlay click.
 ajaxUrl (null):
 	Set the ajax url if you want to load content remotely.
 afterAjax (null):

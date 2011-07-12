@@ -4,8 +4,8 @@
 * jQuery plugin to display modal windows and alerts.
 *
 * @author Dumitru Glavan
-* @link http://dumitruglavan.com
-* @version 1.1
+* @link http://dumitruglavan.com/jquery-doom-windows-plugin-simple-javascript-dialogs/
+* @version 1.2 (12-JUL-2011)
 * @requires jQuery v1.3.2 or later
 *
 * Find source on GitHub: https://github.com/doomhz/jQuery-Doom-Windows
@@ -27,40 +27,46 @@
 		}
 
 		this.config = {
-			styles: {
-			   position: 'absolute',
-			   'z-index': 999,
-			   top: false,
-			   left: false
-		   },
-		   width: 'auto',
-		   height: 'auto',
-		   minWidth: 'auto',
-		   minHeight: 'auto',
-		   overlay: true,
-		   wrapp: true,
-		   wrapperClass: 'doom-win',
-		   wrapperId: false,
-		   wrapperHtml: '<div><div class="doom-win-content"></div></div>',
-		   buttons: {
-			   ok:'Ok'
-		   },
-		   headerButtons: {
-			   close:'Close'
-		   },
-		   buttonsTranslate: [],
-		   buttonsHeaderWrapperHtml: '<div class="doom-win-bt-cnt-header"><ul class="doom-win-bt-list">{buttons}</ul></div>',
-		   buttonsWrapperHtml: '<div class="doom-win-bt-cnt"><ul class="doom-win-bt-list">{buttons}</ul></div>',
-		   buttonHtml: '<li class="doom-win-bt-{buttonType}"><button data-type="{buttonType}"><span>{buttonText}</span></button></li>',
-		   buttonClick: null,
-           closeOnEsc: true,
-           onEsc: null,
-		   ajaxUrl: null,
-		   afterAjax: null,
-		   ajaxData: null,
-		   cacheAjaxResult: false,
-		   onShow: null
-		};
+            styles: {
+                position: 'absolute',
+                'z-index': 999,
+                top: false,
+                left: false
+            },
+            width: 'auto',
+            height: 'auto',
+            minWidth: 'auto',
+            minHeight: 'auto',
+            overlay: true,
+            wrapp: true,
+            wrapperClass: 'doom-win',
+            wrapperId: false,
+            wrapperHtml: '<div><div class="doom-win-content"></div></div>',
+            buttons: {
+                ok:'Ok'
+            },
+            headerButtons: {
+                close:'Close'
+            },
+            buttonsTranslate: [],
+            buttonsHeaderWrapperHtml: '<div class="doom-win-bt-cnt-header"><ul class="doom-win-bt-list">{buttons}</ul></div>',
+            buttonsWrapperHtml: '<div class="doom-win-bt-cnt"><ul class="doom-win-bt-list">{buttons}</ul></div>',
+            buttonHtml: '<li class="doom-win-bt-{buttonType}"><button data-type="{buttonType}"><span>{buttonText}</span></button></li>',
+            buttonClick: null,
+            closeOnEsc: true,
+            closeOnSideClick: true,
+            onEsc: function () {
+                $(this).close();
+            },
+            onSideClick: function () {
+                $(this).close();
+            },
+            ajaxUrl: null,
+            afterAjax: null,
+            ajaxData: null,
+            cacheAjaxResult: false,
+            onShow: null
+        };
 		$.extend(this.config, options);
 
 		var self = this;
@@ -83,11 +89,17 @@
 
 		if (self.config.overlay) {
 			lastZIndex++;
-			$('<div class="doom-win-overlay"></div>').css({position: 'absolute',
-														   'z-index': lastZIndex,
-														   width: '100%',
-														   height: $(document).height()
-														  }).prependTo('body:first');
+			var $overlay = $('<div class="doom-win-overlay"></div>').css({
+                position: 'absolute',
+				'z-index': lastZIndex,
+				width: '100%',
+				height: $(document).height()
+		    }).prependTo('body:first');
+            if (self.config.closeOnSideClick) {
+                $overlay.click(function () {
+                    $.isFunction(self.config.onSideClick) && self.config.onSideClick.call(self);
+                });
+            }
 		}
 
 		self.winContent = $('div.doom-win-content', $self);
@@ -136,7 +148,6 @@
 		if (self.config.closeOnEsc) {
 			$(window).keydown(function (ev) {
 				if (ev.keyCode == '27') {
-					$self.close();
                     $.isFunction(self.config.onEsc) && self.config.onEsc.call(self);
 				}
 			});
@@ -147,8 +158,10 @@
 
 	$.fn.getMiddlePosition = function () {
 		var $self = $(this);
-		return {top: parseInt(($(window).height() - $self.height()) / 2) + $(window).scrollTop(),
-				left: parseInt(($(window).width() - $self.width()) / 2)};
+		return {
+            top: parseInt(($(window).height() - $self.height()) / 2) + $(window).scrollTop(),
+			left: parseInt(($(window).width() - $self.width()) / 2)
+        };
 	},
 
 	$.fn.loadContent = function (options) {

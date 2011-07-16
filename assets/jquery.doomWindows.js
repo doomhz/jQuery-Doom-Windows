@@ -5,7 +5,7 @@
 *
 * @author Dumitru Glavan
 * @link http://dumitruglavan.com/jquery-doom-windows-plugin-simple-javascript-dialogs/
-* @version 1.2 (12-JUL-2011)
+* @version 1.3 (16-JUL-2011)
 * @requires jQuery v1.3.2 or later
 *
 * Find source on GitHub: https://github.com/doomhz/jQuery-Doom-Windows
@@ -19,7 +19,7 @@
 
     $.fn.doomWindows = function (options) {
 
-		if ($(this).length > 1) {
+    	if ($(this).length > 1) {
 			$.each($(this), function (i, el) {
 				$(el).doomWindows(options);
 			});
@@ -208,12 +208,12 @@
 
 	dAlert = function (message, callback) {
 		callback = typeof(callback) === 'function' ? callback : function (btType, win) {win.close();};
-		$('<p class="d-alert-msg">' + message + '</p>').doomWindows({buttons: false, buttonClick: callback});
+		$('<p class="d-alert-msg">' + message + '</p>').doomWindows({wrapperClass: 'doom-win doom-win-alert', buttons: false, buttonClick: callback});
 	},
 
 	dConfirm = function (message, callback) {
 		callback = typeof(callback) === 'function' ? callback : function (btType, win) {(btType === 'no' || btType === 'close') && win.close();};
-		$('<p class="d-confirm-msg">' + message + '</p>').doomWindows({buttons: {yes:'Yes', no:'No'}, buttonClick: callback});
+		$('<p class="d-confirm-msg">' + message + '</p>').doomWindows({wrapperClass: 'doom-win doom-win-confirm', buttons: {yes:'Yes', no:'No'}, buttonClick: callback});
 	},
 
 	dPrompt = function () {

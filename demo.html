@@ -155,6 +155,10 @@ $('#remote-bt').click(function () {
 			<dd>
 				A callback function when for all the buttons. Get the buttons key (ok, close, yes, no) and the window object as args. I.e.: function (btType, win) {btType === 'close' && win.close();}
 			</dd>
+            <dt><b>eventsNamespace</b> (null):</dt>
+    		<dd>
+				A namespace for the gobal window events. Normally it's preffiled automatically on window create and it's unique for each window.
+			</dd>
 			<dt><b>closeOnEsc</b> (true):</dt>
 			<dd>
 				Close window on Escape keyboard button click.

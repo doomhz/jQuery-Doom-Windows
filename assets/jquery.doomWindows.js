@@ -5,7 +5,7 @@
 *
 * @author Dumitru Glavan
 * @link http://dumitruglavan.com/jquery-doom-windows-plugin-simple-javascript-dialogs/
-* @version 1.3 (16-JUL-2011)
+* @version 1.4 (21-AUG-2011)
 * @requires jQuery v1.3.2 or later
 *
 * Find source on GitHub: https://github.com/doomhz/jQuery-Doom-Windows
@@ -53,6 +53,7 @@
             buttonsWrapperHtml: '<div class="doom-win-bt-cnt"><ul class="doom-win-bt-list">{buttons}</ul></div>',
             buttonHtml: '<li class="doom-win-bt-{buttonType}"><button data-type="{buttonType}"><span>{buttonText}</span></button></li>',
             buttonClick: null,
+            eventsNamespace: null,
             closeOnEsc: true,
             closeOnSideClick: true,
             onEsc: function () {
@@ -136,22 +137,24 @@
 		self.config.ajaxUrl =  self.config.ajaxUrl || $self.attr('data-url') || $self.attr('href');
 		self.config.ajaxUrl && self.loadContent({ajaxUrl: self.config.ajaxUrl, ajaxData: self.config.ajaxData, cacheResult: self.config.cacheAjaxResult, afterAjax: self.config.afterAjax});
 
-		$(window).resize(
-			function () {
-				$self.css({top:self.config.styles.top || self.getMiddlePosition.call(self).top});
-				$self.css({left:self.config.styles.left || self.getMiddlePosition.call(self).left});
-			}
-		);
+        self.config.eventsNamespace = self.config.eventsNamespace || ('doom-win-'+ new Date().getTime());
+
+		$(window).bind('resize.' + self.config.eventsNamespace, function () {
+			$self.css({top:self.config.styles.top || self.getMiddlePosition.call(self).top});
+			$self.css({left:self.config.styles.left || self.getMiddlePosition.call(self).left});
+		});
 
 		self.config.onShow && self.config.onShow.call($self);
-
+        
 		if (self.config.closeOnEsc) {
-			$(window).keydown(function (ev) {
+			$(window).bind('keydown.' + self.config.eventsNamespace, function (ev) {
 				if (ev.keyCode == '27') {
                     $.isFunction(self.config.onEsc) && self.config.onEsc.call(self);
 				}
 			});
 		}
+        
+        $self.data('config', self.config);
 
 		return $(this);
 	},
@@ -194,7 +197,8 @@
 	},
 
 	$.fn.close = function () {
-		var $self = $(this);
+		var $self = $(this), config = $self.data('config');
+        $(window).unbind('keydown.' + config.eventsNamespace).unbind('resize.' + config.eventsNamespace);
 		$self.remove();
 		$('div.doom-win-overlay:first').remove();
 	},

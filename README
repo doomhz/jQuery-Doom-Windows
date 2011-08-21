@@ -101,6 +101,8 @@ buttonHtml ('<li class="doom-win-bt-{buttonType}"><button data-type="{buttonType
 	Message button HTML structure.
 buttonClick (null):
 	A callback function when for all the buttons. Get the buttons key (ok, close, yes, no) and the window object as args. I.e.: function (btType, win) {btType === 'close' && win.close();}
+eventsNamespace</b> (null):
+	A namespace for the gobal window events. Normally it's preffiled automatically on window create and it's unique for each window.
 closeOnEsc (true):
 	Close window on Escape keyboard button click.
 onEsc (function () {$(this).close();}):

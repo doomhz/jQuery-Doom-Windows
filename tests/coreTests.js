@@ -1,5 +1,13 @@
 var htmlContent = '<p>Great success!</p>';
 
+function getWindowCenterPosition() {
+    var $textWindow = $('#text-window');
+    return {
+        top: parseInt(($(window).height() - $textWindow.height()) / 2),
+		left: parseInt(($(window).width() - $textWindow.width()) / 2)
+    }
+}
+
 module("Core functionality",
     {
         setup: function() {
@@ -36,6 +44,14 @@ test('Open a window 400x300 with HTML content', function () {
     var winContent = '<div class="doom-win-bt-cnt-header"><ul class="doom-win-bt-list"><li class="doom-win-bt-close"><button data-type="close"><span>Close</span></button></li></ul></div><div class="doom-win-content" style="width: 400px; height: 300px; ">' + htmlContent + '</div><div class="doom-win-bt-cnt"><ul class="doom-win-bt-list"><li class="doom-win-bt-ok"><button data-type="ok"><span>Ok</span></button></li></ul></div>';
     equal($textWindow.html(), winContent, 'The entire window structure is stable:' + winContent);
 });
+
+// TODO Make this test pass
+/*
+test('The windows is placed on the middle of the screen even after a browser resize', function () {
+    var center = getWindowCenterPosition();
+    equals($(window).height(), center.top * 2 + 300, 'Window is verticaly adjusted in the middle of the browser viewport');
+    equals($(window).width(), center.left * 2 + 400, 'Window is horizontaly adjusted in the middle of the browser viewport');
+});*/
 
 test('Window closes on close() call', function () {
     var $textWindow = $('#text-window');

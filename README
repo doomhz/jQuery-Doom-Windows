@@ -105,6 +105,8 @@ eventsNamespace (null):
 	A namespace for the gobal window events. Normally it's preffiled automatically on window create and it's unique for each window.
 closeOnEsc (true):
 	Close window on Escape keyboard button click.
+onClose (null):
+    Callback on window close.
 onEsc (function () {$(this).close();}):
     Callback for closing window on Esc button hit.
 closeOnSideClick (true):

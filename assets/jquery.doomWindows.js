@@ -5,7 +5,7 @@
 *
 * @author Dumitru Glavan
 * @link http://dumitruglavan.com/jquery-doom-windows-plugin-simple-javascript-dialogs/
-* @version 1.4 (21-AUG-2011)
+* @version 1.4 (30-SEP-2011)
 * @requires jQuery v1.3.2 or later
 *
 * Find source on GitHub: https://github.com/doomhz/jQuery-Doom-Windows

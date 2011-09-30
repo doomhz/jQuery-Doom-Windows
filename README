@@ -115,8 +115,8 @@ onSideClick (function () {$(this).close();}):
     Callback for closing window on overlay click.
 ajaxUrl (null):
 	Set the ajax url if you want to load content remotely.
-afterAjax (null):
-	After ajax callback function. Gets the ajax response as arg.
+afterAjax (null, winContent):
+	After ajax callback function. Gets the ajax response and the window container as args.
 ajaxData (null):
 	Set some custome request query params for ajax.
 cacheAjaxResult (false):

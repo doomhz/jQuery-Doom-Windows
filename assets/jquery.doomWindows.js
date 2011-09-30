@@ -56,6 +56,7 @@
             eventsNamespace: null,
             closeOnEsc: true,
             closeOnSideClick: true,
+            onClose: null,
             onEsc: function () {
                 $(this).close();
             },
@@ -198,6 +199,7 @@
 
 	$.fn.close = function () {
 		var $self = $(this), config = $self.data('config');
+        $.isFunction(config.onClose) && config.onClose.call(this);
         $(window).unbind('keydown.' + config.eventsNamespace).unbind('resize.' + config.eventsNamespace);
 		$self.remove();
 		$('div.doom-win-overlay:first').remove();

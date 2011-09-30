@@ -175,7 +175,7 @@
 			cacheResult: false,
 			htmlData: null
 		}, options);
-		var $self = $(this);
+		var self = this, $self = $(self);
 		var winContent = $('div.doom-win-content', $self);
 
 		if (config.htmlData) {
@@ -189,7 +189,7 @@
 				success: function (response) {
 					winContent.html(response);
 					winContent.removeClass('doom-win-ajax-loading');
-					$.isFunction(config.afterAjax) && config.afterAjax(response);
+					$.isFunction(config.afterAjax) && config.afterAjax.call(self, response, winContent);
 					$(window).trigger('resize');
 				}
 			});

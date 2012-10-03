@@ -29,7 +29,7 @@
 		this.config = {
             styles: {
                 position: 'absolute',
-                'z-index': 999,
+                'z-index': 999999,
                 top: false,
                 left: false
             },
